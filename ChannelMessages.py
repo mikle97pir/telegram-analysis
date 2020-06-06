@@ -1,6 +1,7 @@
 import configparser
 import json
 import asyncio
+import socks
 from datetime import date, datetime
 
 from telethon import TelegramClient
@@ -37,7 +38,12 @@ phone = config['Telegram']['phone']
 username = config['Telegram']['username']
 
 # Create the client and connect
-client = TelegramClient(username, api_id, api_hash)
+client = TelegramClient(
+    username,
+    api_id,
+    api_hash,
+    proxy = (socks.SOCKS5, '127.0.0.1', 9050)
+)
 
 async def main(phone):
     await client.start()
